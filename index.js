@@ -1,5 +1,6 @@
 const express=require("express")
 const geoCode=require('./utils/geoCode.js')
+const processing = require("./db/mongodb")
 const app=express()
 const port=process.env.PORT || 3000
 
@@ -33,6 +34,18 @@ app.post('/location',(req,res)=>{
             i++;
         })
     }
+})
+
+app.post('/process/:id',(req,res)=>{
+    processing(req.body[0],req.params.id,req.query.name,(error,{output}={})=>{
+        if(error){
+            return res.send({error})
+        }
+        //console.log(output)
+        res.setHeader('Name','Goutam Halder')
+        res.setHeader('Contact','haldergoutam363@gmail.com')
+        res.send(output)
+    })
 })
 
 app.post('*',(req,res)=>{
