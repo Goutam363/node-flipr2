@@ -1,13 +1,11 @@
 const express=require("express")
 const geoCode=require('./utils/geoCode.js')
 const app=express()
-// const router=new express.Router()
 const port=process.env.PORT || 3000
 
 app.use(express.json())
 
 app.post('/location',(req,res)=>{
-    //console.log(req.body)
     if(!req.body){
         return res.send({
             error:'You must provide an address...'
@@ -23,7 +21,6 @@ app.post('/location',(req,res)=>{
             if(error){
                 return res.send({error})
             }
-            // console.log({add:location,location:[latitude,longitude]})
             result_address.push({
                 add:location,
                 location:[latitude,longitude]
